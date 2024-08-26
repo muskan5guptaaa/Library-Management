@@ -41,11 +41,21 @@ exports.getAuthorByID=async(req,res)=>{
 //Update an author
 exports.updateAuthor = async (req, res) => {
     try {
-        
-    }catch{
+        const author = await Author.findById(req.params.id);
+        if (!author) return res.status(404).json({ message: 'Author not found' });
 
+        author.name = req.body.name || author.name;
+        author.bio = req.body.bio || author.bio;
+        author.dateOfBirth = req.body.dateOfBirth || author.dateOfBirth;
+        author.nationality = req.body.nationality || author.nationality;
+
+        const updatedAuthor = await author.save();
+        res.json(updatedAuthor);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
     }
-}
+};
+
 
 //Delete an author
 exports.delereAuthor=async(req,res)=>{
