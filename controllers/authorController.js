@@ -1,4 +1,4 @@
-const Author = require('../models/author');
+const Author = require('../models/Author.model');
 
 // Create a new author
 exports.createAuthor = async (req, res) => {
@@ -58,7 +58,7 @@ exports.updateAuthor = async (req, res) => {
 
 
 //Delete an author
-exports.delereAuthor=async(req,res)=>{
+exports.deleteAuthor=async(req,res)=>{
     try {
         const author = await Author.findById(req.params.id);
         if (!author) return res.status(404).json({ message: 'Author not found' });
